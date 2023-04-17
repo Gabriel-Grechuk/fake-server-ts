@@ -2,6 +2,7 @@ import { DirInfoType } from "./types.ts";
 import { FileContentType } from "./types.ts";
 import { config } from "./config.ts";
 import { validateFields, deleteUnusedFields } from "./utils.ts";
+import * as log from "./log.ts";
 
 export async function getFilesInfo(path: string): Promise<DirInfoType[]> {
   const files: DirInfoType = [];
@@ -34,20 +35,23 @@ export async function parseFiles(files: string[]) {
       throw {
         message: "Cant load the file: " + file,
         code: 3,
-      }
+      };
     });
     const rawJson = JSON.parse(rawText);
     if (!validateFields(["name", "filters", "route", "content"], rawJson)) {
-      console.log(
-        "WARNING: the file",
+      log.warning(
+        "The file",
         file,
         "may not be a valid response model. It will be ignored."
       );
       continue;
     }
-    const json = deleteUnusedFields(["name", "filters", "route", "content"], rawJson);
+    const json = deleteUnusedFields(
+      ["name", "filters", "route", "content"],
+      rawJson
+    );
     filesContent.push(json);
-    console.log("INFO: The file", file, "was loaded succesfully")
+    log.info("The file", file, "was loaded succesfully");
   }
 
   return filesContent;
