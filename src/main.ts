@@ -3,17 +3,15 @@ import * as fs from "./fs.ts";
 import * as server from "./server.ts";
 import * as log from "./log.ts";
 
-
-
 async function main() {
   try {
     const filesInfo = await fs.getFilesInfo(config.responseFilesPath);
     const filesNames = fs.getFilesNames(filesInfo);
-    const files = await fs.parseFiles(filesNames);
+    let files = await fs.parseFiles(filesNames);
+    const app = server.setupRoutes(files);
 
-    //const routes = await server.setupRoutes(files);
-
-    //console.log(files);
+    log.info("App runnin in the port", config.port);
+    await app.listen({ port: config.port });
   } catch (error) {
     log.error(error.message);
     Deno.exit(error.code);
