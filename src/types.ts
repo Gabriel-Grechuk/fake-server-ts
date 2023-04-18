@@ -5,11 +5,13 @@ export type DirInfoType = {
   isSymlink: boolean;
 };
 
-
-
 export type FileContentType = {
   name: string;
-  filters: string;
-  route: string;
-  content: unknown,
-}
+  routes: Array<{
+    route: string;
+    filters: Record<string, string>;
+  }>;
+  content: unknown;
+};
+
+export type IndexedFileContent = Record<string, unknown>;
