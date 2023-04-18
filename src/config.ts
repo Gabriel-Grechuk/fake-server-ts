@@ -3,8 +3,8 @@ import { parse } from "https://deno.land/std/flags/mod.ts";
 import * as log from "./log.ts";
 import { normalizePathString } from "./utils.ts";
 
-
 const commandLineArgs = parse(Deno.args);
+
 
 
 function validateArgs() {
@@ -17,6 +17,7 @@ function validateArgs() {
   }
 }
 validateArgs();
+
 
 
 export const config = {
