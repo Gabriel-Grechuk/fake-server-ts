@@ -5,6 +5,8 @@ export type DirInfoType = {
   isSymlink: boolean;
 };
 
+
+
 export type FileContentType = {
   name: string;
   filters: string;

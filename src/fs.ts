@@ -4,6 +4,8 @@ import { config } from "./config.ts";
 import { validateFields, deleteUnusedFields } from "./utils.ts";
 import * as log from "./log.ts";
 
+
+
 export async function getFilesInfo(path: string): Promise<DirInfoType[]> {
   const files: DirInfoType = [];
   try {
@@ -18,12 +20,16 @@ export async function getFilesInfo(path: string): Promise<DirInfoType[]> {
   return files;
 }
 
+
+
 export function getFilesNames(filesInfo: DirInfoType[]): string[] {
   if (!filesInfo || filesInfo.length <= 0)
     throw { message: "No file info to get names in getFilesNames()", code: 2 };
 
   return filesInfo.map((info) => info.name) as string[];
 }
+
+
 
 export async function parseFiles(files: string[]) {
   const filesContent: FileContentType[] = [];

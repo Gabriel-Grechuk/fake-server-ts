@@ -8,6 +8,8 @@ export function normalizePathString(path: string): string {
   return normalized;
 }
 
+
+
 export function validateFields(fields: string[], obj: unknown): boolean {
   const keys = Object.keys(obj);
   for (const field of fields) {
@@ -15,6 +17,8 @@ export function validateFields(fields: string[], obj: unknown): boolean {
   }
   return true;
 }
+
+
 
 export function deleteUnusedFields(
   fieldsToKeep: string[],

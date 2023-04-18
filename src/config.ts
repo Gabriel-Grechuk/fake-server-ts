@@ -1,11 +1,11 @@
 import "https://deno.land/std@0.183.0/dotenv/load.ts";
-
 import { parse } from "https://deno.land/std/flags/mod.ts";
-
 import * as log from "./log.ts";
 import { normalizePathString } from "./utils.ts";
 
+
 const commandLineArgs = parse(Deno.args);
+
 
 function validateArgs() {
   const validArgs = ["port", "response-files-path"];
@@ -17,6 +17,7 @@ function validateArgs() {
   }
 }
 validateArgs();
+
 
 export const config = {
   port:

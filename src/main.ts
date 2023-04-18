@@ -3,6 +3,8 @@ import * as fs from "./fs.ts";
 import * as server from "./server.ts";
 import * as log from "./log.ts";
 
+
+
 async function main() {
   try {
     const filesInfo = await fs.getFilesInfo(config.responseFilesPath);
