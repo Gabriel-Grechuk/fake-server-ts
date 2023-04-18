@@ -31,7 +31,7 @@ export function getFilesNames(filesInfo: DirInfoType[]): string[] {
 
 
 
-export async function parseFiles(files: string[]) {
+export async function parseFiles(files: string[]): Promise<FileContentType[]> {
   const filesContent: FileContentType[] = [];
 
   for (const file of files) {
@@ -44,7 +44,7 @@ export async function parseFiles(files: string[]) {
       };
     });
     const rawJson = JSON.parse(rawText);
-    if (!validateFields(["name", "filters", "route", "content"], rawJson)) {
+    if (!validateFields(["name", "routes", "content"], rawJson)) {
       log.warning(
         "The file",
         file,
@@ -53,7 +53,7 @@ export async function parseFiles(files: string[]) {
       continue;
     }
     const json = deleteUnusedFields(
-      ["name", "filters", "route", "content"],
+      ["name", "routes", "content"],
       rawJson
     );
     filesContent.push(json);
