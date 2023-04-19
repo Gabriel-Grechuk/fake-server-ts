@@ -5,8 +5,6 @@ import { normalizePathString } from "./utils.ts";
 
 const commandLineArgs = parse(Deno.args);
 
-
-
 function validateArgs() {
   const validArgs = ["port", "response-files-path"];
   for (const arg of Object.keys(commandLineArgs)) {
@@ -17,8 +15,6 @@ function validateArgs() {
   }
 }
 validateArgs();
-
-
 
 export const config = {
   port:

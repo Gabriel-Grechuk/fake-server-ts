@@ -4,8 +4,6 @@ import { config } from "./config.ts";
 import { validateFields, deleteUnusedFields } from "./utils.ts";
 import * as log from "./log.ts";
 
-
-
 export async function getFilesInfo(path: string): Promise<DirInfoType[]> {
   const files: DirInfoType = [];
   try {
@@ -20,16 +18,12 @@ export async function getFilesInfo(path: string): Promise<DirInfoType[]> {
   return files;
 }
 
-
-
 export function getFilesNames(filesInfo: DirInfoType[]): string[] {
   if (!filesInfo || filesInfo.length <= 0)
     throw { message: "No file info to get names in getFilesNames()", code: 2 };
 
   return filesInfo.map((info) => info.name) as string[];
 }
-
-
 
 export async function parseFiles(files: string[]): Promise<FileContentType[]> {
   const filesContent: FileContentType[] = [];
@@ -52,10 +46,7 @@ export async function parseFiles(files: string[]): Promise<FileContentType[]> {
       );
       continue;
     }
-    const json = deleteUnusedFields(
-      ["name", "routes", "content"],
-      rawJson
-    );
+    const json = deleteUnusedFields(["name", "routes", "content"], rawJson);
     filesContent.push(json);
     log.info("The file", file, "was loaded succesfully");
   }
