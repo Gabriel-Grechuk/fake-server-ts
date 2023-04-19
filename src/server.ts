@@ -35,7 +35,7 @@ export function setupRoutes(files: FileContentType[]): typeof app {
     for (const route of content.routes) {
       router.get(route.route, (ctx) => {
         const args = helpers.getQuery(ctx, { mergeParams: true });
-        ctx.response.body = applyFilters(route.filters, args, content.content);
+        ctx.response.body = applyFilters(route.filters, args, content.content).flat();
       });
       log.info("Created the route:", route.route);
     }
