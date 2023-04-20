@@ -2,7 +2,6 @@ import * as log from "./log.ts";
 import { checkAndCreateDate } from "./utils.ts";
 
 function comparableContent<T>(item: T): T | number | Date | undefined {
-  console.log("Item:",item);
   const dateElement = checkAndCreateDate(item);
   if (typeof item === "string" && parseInt(item)) {
     return parseInt(item);
