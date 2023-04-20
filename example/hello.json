@@ -1,0 +1,79 @@
+{
+  "name": "Module name",
+  "routes": [
+    {
+      "route": "/person",
+      "filters": {}
+    },
+    {
+      "route": "/person/:id",
+      "filters": {
+        "equal": {
+          "personal_number": "id"
+        }
+      }
+    },
+    {
+      "route": "/person-age",
+      "filters": {
+        "equal": {
+          "age": "age"
+        },
+        "gte": {
+          "age": "age-bigger-than"
+        }
+      }
+    },
+    {
+      "route": "/person-age/:age",
+      "filters": {
+        "equal": {
+          "age": "age"
+        }
+      }
+    }
+  ],
+
+  "content": [
+    {
+      "personal_number": 1,
+      "name": "Santana",
+      "age": 45
+    },
+    {
+      "personal_number": 2,
+      "name": "Anna",
+      "age": 22
+    },
+    {
+      "personal_number": 3,
+      "name": "Bob",
+      "age": 35
+    },
+    {
+      "personal_number": 4,
+      "name": "Peter",
+      "age": 16
+    },
+    {
+      "personal_number": 5,
+      "name": "Vera",
+      "age": 19
+    },
+    {
+      "personal_number": 6,
+      "name": "Elisabeth",
+      "age": 15
+    },
+    {
+      "personal_number": 7,
+      "name": "John",
+      "age": 18
+    },
+    {
+      "personal_number": 8,
+      "name": "Ethan",
+      "age": 23
+    }
+  ]
+}
