@@ -1,9 +1,16 @@
 import * as log from "./log.ts";
 import { checkAndCreateDate } from "./utils.ts";
 
-function comparableContent<T>(item: T): T | Date | undefined {
+function comparableContent<T>(item: T): T | number | Date | undefined {
+  console.log("Item:",item);
   const dateElement = checkAndCreateDate(item);
-  if (typeof item !== "number" && !(item instanceof Date) && !dateElement)
+  if (typeof item === "string" && parseInt(item)) {
+    return parseInt(item);
+  } else if (
+    typeof item !== "number" &&
+    !(item instanceof Date) &&
+    !dateElement
+  )
     return undefined;
   else if (dateElement) return dateElement;
   else return item;
@@ -24,8 +31,9 @@ function pagination(
 }
 
 function equals(key: string, item: unknown, content: unknown[]): unknown[] {
-  if (typeof item === "object") {
-    log.error("'equals' filter cannot compare the data. Ignoring filter");
+  item = comparableContent(item);
+  if (!item) {
+    log.error("'gte' filter cannot compare the data. Ignoring filter");
     return content;
   }
 
@@ -35,6 +43,7 @@ function equals(key: string, item: unknown, content: unknown[]): unknown[] {
 }
 
 function gte(key: string, item: unknown, content: unknown[]): unknown[] {
+  console.log("Here")
   item = comparableContent(item);
   if (!item) {
     log.error("'gte' filter cannot compare the data. Ignoring filter");
@@ -110,6 +119,9 @@ export function applyFilters(
           const dataKey = filterData[keys[0]];
           const data = args[dataKey];
 
+          if(!data)
+            return;
+
           response = equals(keys[0], data, response);
         }
         break;
@@ -117,8 +129,11 @@ export function applyFilters(
       case "gte":
         {
           const keys = Object.keys(filterData);
-          const filterField = filterData[[keys[0]]];
+          const filterField = filterData[keys[0]];
           const data = args[filterField];
+
+          if(!data)
+            return;
 
           response = gte(keys[0], data, response);
         }
@@ -130,6 +145,9 @@ export function applyFilters(
           const filterField = filterData[[keys[0]]];
           const data = args[filterField];
 
+          if(!data)
+            return;
+
           response = gt(keys[0], data, response);
         }
         break;
@@ -140,6 +158,9 @@ export function applyFilters(
           const filterField = filterData[[keys[0]]];
           const data = args[filterField];
 
+          if(!data)
+            return;
+
           response = lte(keys[0], data, response);
         }
         break;
@@ -149,6 +170,9 @@ export function applyFilters(
           const keys = Object.keys(filterData);
           const filterField = filterData[[keys[0]]];
           const data = args[filterField];
+
+          if(!data)
+            return;
 
           response = lt(keys[0], data, response);
         }
