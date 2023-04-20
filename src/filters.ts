@@ -87,7 +87,7 @@ export function applyFilters(
   args: unknown,
   content: unknown[]
 ): unknown[] {
-  const response = [];
+  let response = content;
 
   const filterKeys = Object.keys(filters);
   if (filterKeys.length <= 0) return content;
@@ -98,46 +98,61 @@ export function applyFilters(
     switch (filter) {
       case "pagination":
         {
-          console.log("Pagination");
           const amount = args[filterData["amount"]];
           const page = args[filterData["page"]];
-          response.push(pagination(amount, page, content));
+          response = pagination(amount, page, response);
         }
         break;
 
       case "equal":
         {
-          console.log("Equal");
           const keys = Object.keys(filterData);
-
           const dataKey = filterData[keys[0]];
           const data = args[dataKey];
 
-          response.push(equals(keys[0], data, content));
+          response = equals(keys[0], data, response);
         }
         break;
 
       case "gte":
         {
-          console.log("gte");
+          const keys = Object.keys(filterData);
+          const filterField = filterData[[keys[0]]];
+          const data = args[filterField];
+
+          response = gte(keys[0], data, response);
         }
         break;
 
       case "gt":
         {
-          console.log("gt");
+          const keys = Object.keys(filterData);
+          const filterField = filterData[[keys[0]]];
+          const data = args[filterField];
+
+          response = gt(keys[0], data, response);
         }
         break;
 
       case "lte":
         {
-          console.log("lte");
+          const keys = Object.keys(filterData);
+          const filterField = filterData[[keys[0]]];
+          const data = args[filterField];
+
+          response = lte(keys[0], data, response);
         }
         break;
 
-      case "lt": {
-        console.log("lt");
-      }
+      case "lt":
+        {
+          const keys = Object.keys(filterData);
+          const filterField = filterData[[keys[0]]];
+          const data = args[filterField];
+
+          response = lt(keys[0], data, response);
+        }
+        break;
 
       default:
         {
