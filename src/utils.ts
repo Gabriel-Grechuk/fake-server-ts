@@ -34,7 +34,6 @@ export function deleteUnusedFields(
 }
 
 export function checkAndCreateDate(date: unknown): Date | undefined {
-  if (typeof date === "string")
-    return new Date(date);
+  if (typeof date === "string") return new Date(date);
   else return undefined;
 }
