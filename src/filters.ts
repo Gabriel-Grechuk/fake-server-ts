@@ -14,7 +14,12 @@ function pagination(
   page: number,
   content: unknown[]
 ): unknown[] {
-  const start = amount * page + 1;
+  if (amount === undefined || amount === undefined) return content;
+
+  // Ex: If you want the 1st page, the starting position will be at 0.
+  const start = amount * (page - 1);
+  if (start < 0) return [];
+
   return content.slice(start, start + amount);
 }
 
@@ -24,7 +29,9 @@ function equals(key: string, item: unknown, content: unknown[]): unknown[] {
     return content;
   }
 
-  return content.filter((element) => element[key] === item);
+  return content.filter((element) => {
+    return element[key] === item;
+  });
 }
 
 function gte(key: string, item: unknown, content: unknown[]): unknown[] {
@@ -87,12 +94,14 @@ export function applyFilters(
 
   filterKeys.forEach((filter) => {
     const filterData = filters[filter];
-    console.log(filter)
 
     switch (filter) {
       case "pagination":
         {
           console.log("Pagination");
+          const amount = args[filterData["amount"]];
+          const page = args[filterData["page"]];
+          response.push(pagination(amount, page, content));
         }
         break;
 
@@ -101,10 +110,10 @@ export function applyFilters(
           console.log("Equal");
           const keys = Object.keys(filterData);
 
-          const field = filterData[keys[0]];
-          const data = args[keys[0]];
+          const dataKey = filterData[keys[0]];
+          const data = args[dataKey];
 
-          response.push(equals(field, data, content));
+          response.push(equals(keys[0], data, content));
         }
         break;
 
