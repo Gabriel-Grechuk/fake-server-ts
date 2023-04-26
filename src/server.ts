@@ -42,7 +42,7 @@ export function setupRoutes(files: FileContentType[]): typeof app {
   });
 
   router.get("/", (ctx) => {
-    ctx.response.body = "Fake server ir running!";
+    ctx.response.body = "Fake server is running!";
   });
 
   app.use(router.routes());
