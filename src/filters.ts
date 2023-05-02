@@ -42,7 +42,6 @@ function equals(key: string, item: unknown, content: unknown[]): unknown[] {
 }
 
 function gte(key: string, item: unknown, content: unknown[]): unknown[] {
-  console.log("Here")
   item = comparableContent(item);
   if (!item) {
     log.error("'gte' filter cannot compare the data. Ignoring filter");
