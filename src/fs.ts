@@ -38,14 +38,19 @@ export async function parseFiles(files: string[]): Promise<FileContentType[]> {
       };
     });
 
-    let rawJson
+    let rawJson;
     try {
       rawJson = JSON.parse(rawText); // Test the json
-    } catch(error) {
-      throw {
-        message: "Syntax erro in file: " + file + ': [ "' + error.message + '" ]',
-        code: 4,
-      }
+    } catch (error) {
+      log.error(
+        "Syntax error in file:",
+        file,
+        '[ "',
+        error.message,
+        '" ]',
+        "It will be ignored."
+      );
+      continue;
     }
     if (!validateFields(["name", "routes", "content"], rawJson)) {
       log.warning(
