@@ -37,7 +37,21 @@ export async function parseFiles(files: string[]): Promise<FileContentType[]> {
         code: 3,
       };
     });
-    const rawJson = JSON.parse(rawText);
+
+    let rawJson;
+    try {
+      rawJson = JSON.parse(rawText); // Test the json
+    } catch (error) {
+      log.error(
+        "Syntax error in file:",
+        file,
+        '[ "',
+        error.message,
+        '" ]',
+        "It will be ignored."
+      );
+      continue;
+    }
     if (!validateFields(["name", "routes", "content"], rawJson)) {
       log.warning(
         "The file",
