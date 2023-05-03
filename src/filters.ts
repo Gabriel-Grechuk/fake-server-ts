@@ -30,14 +30,10 @@ function pagination(
 }
 
 function equals(key: string, item: unknown, content: unknown[]): unknown[] {
-  item = comparableContent(item);
-  if (!item) {
-    log.error("'gte' filter cannot compare the data. Ignoring filter");
-    return content;
-  }
+  const comparableItem = comparableContent(item);
 
   return content.filter((element) => {
-    return element[key] === item;
+    return element[key] === comparableItem || element[key] === item;
   });
 }
 
@@ -117,8 +113,7 @@ export function applyFilters(
           const dataKey = filterData[keys[0]];
           const data = args[dataKey];
 
-          if(!data)
-            return;
+          if (!data) return;
 
           response = equals(keys[0], data, response);
         }
@@ -130,8 +125,7 @@ export function applyFilters(
           const filterField = filterData[keys[0]];
           const data = args[filterField];
 
-          if(!data)
-            return;
+          if (!data) return;
 
           response = gte(keys[0], data, response);
         }
@@ -143,8 +137,7 @@ export function applyFilters(
           const filterField = filterData[[keys[0]]];
           const data = args[filterField];
 
-          if(!data)
-            return;
+          if (!data) return;
 
           response = gt(keys[0], data, response);
         }
@@ -156,8 +149,7 @@ export function applyFilters(
           const filterField = filterData[[keys[0]]];
           const data = args[filterField];
 
-          if(!data)
-            return;
+          if (!data) return;
 
           response = lte(keys[0], data, response);
         }
@@ -169,8 +161,7 @@ export function applyFilters(
           const filterField = filterData[[keys[0]]];
           const data = args[filterField];
 
-          if(!data)
-            return;
+          if (!data) return;
 
           response = lt(keys[0], data, response);
         }
